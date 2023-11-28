@@ -1,5 +1,6 @@
 import '@styles/globals.css'
-import { Children } from 'react'
+import Nav from '@components/Nav'
+import Provider from '@components/Provider'
 
 export const metadate = {
   title: 'Promptopia',
@@ -15,7 +16,10 @@ const RootLayout = ({ children }) => {
           <div className='gradient'></div>
         </div>
 
-        <main className='app'>{children}</main>
+        <main className='app'>
+          <Nav />
+          {children}
+        </main>
       </body>
     </html>
   )
