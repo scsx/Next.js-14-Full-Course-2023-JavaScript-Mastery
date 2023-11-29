@@ -11,7 +11,6 @@ const Nav = () => {
   const [providers, setProviders] = useState(null)
   const [toggleDropdown, setToggleDropdown] = useState(false)
 
-  /*
   useEffect(() => {
     const setProviders = async () => {
       const response = await getProviders()
@@ -21,7 +20,6 @@ const Nav = () => {
 
     setProviders()
   })
-  */
  
   return (
     <nav className='flex-between w-full mb-16 pt-3'>
