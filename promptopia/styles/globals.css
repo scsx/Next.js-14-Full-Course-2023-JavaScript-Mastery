@@ -168,3 +168,10 @@
 .flex-between {
   @apply flex justify-between items-center;
 }
+
+/* Estilos extra SCSX */
+@media (min-width: 768px){
+  .user_bar.md\:gap-5{
+    gap: .5rem;
+  }
+}
