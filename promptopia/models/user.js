@@ -2,7 +2,7 @@ import { Schema, model, models } from 'mongoose'
 
 // Este ficheiro ajuda a comunicar de forma standard com o MongoDB.
 
-const UserSchema = newSchema({
+const UserSchema = new Schema({
   email: {
     type: String,
     unique: [true, 'Email already exists!'],
