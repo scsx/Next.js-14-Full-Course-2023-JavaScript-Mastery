@@ -19,7 +19,7 @@ const Nav = () => {
     }
 
     setUpProviders()
-  })
+  }, [])
  
   return (
     <nav className='flex-between w-full mb-16 pt-3'>
