@@ -1,7 +1,7 @@
 import { Schema, model, models } from 'mongoose'
 
-// Este ficheiro ajuda a comunicar de forma standard com o MongoDB.
-
+// Este ficheiro define a data de acordo com o requerido pela MongoDb.
+// Mongoose é o intermediário entre Node e MongoDB.
 const UserSchema = new Schema({
   email: {
     type: String,
@@ -22,7 +22,7 @@ const UserSchema = new Schema({
 })
 
 // Como esta route é dinâmica e a conexão à DB é intermintente tem que se fazer este check:
-// Se User já existe em models (importado em cima), reusa-se esse; senão cria-se um novo model.
+// Se User já existe nos models existentes reutiliza-se esse; senão cria-se um novo model.
 const User = models.User || model("User", UserSchema)
 
 export default User
