@@ -7,6 +7,9 @@ import { useRouter } from 'next/navigation'
 import Form from '@components/Form'
 
 const CreatePrompt = () => {
+  const router = useRouter()
+  const { data: session } = useSession()
+
   const [submitting, setSubmitting] = useState(false)
   const [post, setPost] = useState({
     prompt: '',
@@ -19,7 +22,7 @@ const CreatePrompt = () => {
 
     try {
       const response = await fetch('/api/prompt/new', {
-        mehtod: 'POST',
+        method: 'POST',
         body: JSON.stringify({
           prompt: post.prompt,
           userId: session?.user.id,
@@ -27,10 +30,11 @@ const CreatePrompt = () => {
         })
       })
 
-      if(response.ok) {
-        RouteHandlerManager.push('/') // Go to hp.
+      if (response.ok) {
+        router.push('/') // Go to hp.
       }
     } catch (error) {
+      console.log('Fails here')
       console.log(error)
     } finally {
       setSubmitting(false)
