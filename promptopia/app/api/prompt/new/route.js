@@ -18,7 +18,7 @@ export const POST = async (req) => {
       status: 201
     })
   } catch (error) {
-    return new Response('Falied to create a new prompt', {
+    return new Response('Failed to create a new prompt', {
       status: 500
     })
   }
