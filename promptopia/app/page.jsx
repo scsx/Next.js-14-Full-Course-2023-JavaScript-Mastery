@@ -14,7 +14,6 @@ const Home = () => {
         discover, create and share creative prompts.
         {returnString(' EnJoy aNd LeaRn!')}
       </p>
-
       <Feed />
     </section>
   )
