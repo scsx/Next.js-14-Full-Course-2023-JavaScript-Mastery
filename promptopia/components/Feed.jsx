@@ -47,6 +47,8 @@ const Feed = () => {
       </form>
 
       <PromptCardList data={posts} handleTagClick={() => {}} />
+
+      <p className='mb-10'>Add most used tags here, retrieved and processed from DB.</p>
     </section>
   )
 }
