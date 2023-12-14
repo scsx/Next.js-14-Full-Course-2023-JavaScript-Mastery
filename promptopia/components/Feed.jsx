@@ -25,6 +25,7 @@ const Feed = () => {
   const [searchText, setSearchText] = useState('')
   const [searchTimeout, setSearchTimeout] = useState(null)
   const [searchedResults, setSearchedResults] = useState([])
+  const [tagsCount, setTagsCounter] = useState([])
 
   const fetchPosts = async () => {
     const response = await fetch('/api/prompt')
@@ -36,6 +37,29 @@ const Feed = () => {
   useEffect(() => {
     fetchPosts()
   }, [])
+
+  // Extra: show tags by usage count.
+  useEffect(() => {
+    const allTags = []
+    const allTagsCombined = []
+    const countsObj = {}
+
+    allPosts.map((i) => allTags.push(i.tag)) // ['#mongodb', '#regex', '#dutch', '#dutch', '#dutch', '#mongodb', '#dutch']
+
+    for (let num of allTags) {
+      countsObj[num] = countsObj[num] ? countsObj[num] + 1 : 1 // {#mongodb: 2, #regex: 1, #dutch: 4}
+    }
+
+    for (let tag in countsObj) {
+      allTagsCombined.push([tag, countsObj[tag]])
+    }
+
+    allTagsCombined.sort((a, b) => {
+      return b[1] - a[1]
+    })
+
+    setTagsCounter(allTagsCombined)
+  }, [allPosts])
 
   const filterPrompts = (searchtext) => {
     const regex = new RegExp(searchtext, 'i') // 'i' flag for case-insensitive search
@@ -89,6 +113,17 @@ const Feed = () => {
       ) : (
         <PromptCardList data={allPosts} handleTagClick={handleTagClick} />
       )}
+
+      {/* Extra: show tags by usage count. */}
+      <h3 className='subhead_text orange_gradient text-center'>All tags</h3>
+      <div className='toptags'>
+        {tagsCount.map((tag) => (
+          <div className='toptags__tag' key={tag[0] + tag[1]}>
+            {tag[0]}
+            <span>{tag[1]}</span>
+          </div>
+        ))}
+      </div>
     </section>
   )
 }

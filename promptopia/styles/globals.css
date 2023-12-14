@@ -89,6 +89,10 @@
   @apply mt-5 text-5xl font-extrabold leading-[1.15] text-black sm:text-6xl;
 }
 
+.subhead_text {
+  @apply mt-5 text-4xl font-extrabold leading-[1.15] text-black sm:text-4xl;
+}
+
 .orange_gradient {
   @apply bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent;
 }
@@ -170,8 +174,30 @@
 }
 
 /* Estilos extra SCSX */
-@media (min-width: 768px){
-  .user_bar.md\:gap-5{
-    gap: .5rem;
+@media (min-width: 768px) {
+  .user_bar.md\:gap-5 {
+    gap: 0.5rem;
   }
+}
+
+.toptags {
+  margin: 3rem auto;
+  text-align: left;
+}
+
+.toptags__tag {
+  display: inline-block;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  background-color: white;
+  padding: 10px 20px;
+  font-weight: bold;
+  border: 1px solid #ddd;
+}
+
+.toptags__tag span {
+  display: inline-block;
+  margin-left: 10px;
+  color: orange;
+  font-family: Satoshi, sans-serif;
 }
