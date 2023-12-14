@@ -116,22 +116,14 @@ const Feed = () => {
 
       {/* Extra: show tags by usage count. */}
       <h3 className='subhead_text orange_gradient text-center'>All tags</h3>
-      <table className='w-1/2 border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left'>
-        <thead>
-          <tr>
-            <th className='border border-slate-600'>Tag</th>
-            <th className='border border-slate-600'>Count</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tagsCount.map((tag) => (
-            <tr key={tag[0] + tag[1]}>
-              <td className='border border-slate-700'>{tag[0]}</td>
-              <td className='border border-slate-700'>{tag[1]}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className='toptags'>
+        {tagsCount.map((tag) => (
+          <div className='toptags__tag' key={tag[0] + tag[1]}>
+            {tag[0]}
+            <span>{tag[1]}</span>
+          </div>
+        ))}
+      </div>
     </section>
   )
 }
