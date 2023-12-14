@@ -25,6 +25,7 @@ const Feed = () => {
   const [searchText, setSearchText] = useState('')
   const [searchTimeout, setSearchTimeout] = useState(null)
   const [searchedResults, setSearchedResults] = useState([])
+  const [tagsCount, setTagsCounter] = useState({})
 
   const fetchPosts = async () => {
     const response = await fetch('/api/prompt')
@@ -35,6 +36,20 @@ const Feed = () => {
 
   useEffect(() => {
     fetchPosts()
+  }, [])
+
+  useEffect(() => {
+    const allTags = []
+    const counts = {}
+
+    allPosts.map((i) => allTags.push(i.tag))
+
+    for (const num of allTags) {
+      counts[num] = counts[num] ? counts[num] + 1 : 1
+    }
+    console.log(counts)
+    setTagsCounter(counts)
+    
   }, [])
 
   const filterPrompts = (searchtext) => {
@@ -89,6 +104,8 @@ const Feed = () => {
       ) : (
         <PromptCardList data={allPosts} handleTagClick={handleTagClick} />
       )}
+
+      <h4>All tags</h4>
     </section>
   )
 }
