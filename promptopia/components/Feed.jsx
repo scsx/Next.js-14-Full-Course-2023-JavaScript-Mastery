@@ -25,7 +25,7 @@ const Feed = () => {
   const [searchText, setSearchText] = useState('')
   const [searchTimeout, setSearchTimeout] = useState(null)
   const [searchedResults, setSearchedResults] = useState([])
-  const [tagsCount, setTagsCounter] = useState({})
+  const [tagsCount, setTagsCounter] = useState([])
 
   const fetchPosts = async () => {
     const response = await fetch('/api/prompt')
@@ -38,19 +38,28 @@ const Feed = () => {
     fetchPosts()
   }, [])
 
+  // Extra: show tags by usage count.
   useEffect(() => {
     const allTags = []
-    const counts = {}
+    const allTagsCombined = []
+    const countsObj = {}
 
-    allPosts.map((i) => allTags.push(i.tag))
+    allPosts.map((i) => allTags.push(i.tag)) // ['#mongodb', '#regex', '#dutch', '#dutch', '#dutch', '#mongodb', '#dutch']
 
-    for (const num of allTags) {
-      counts[num] = counts[num] ? counts[num] + 1 : 1
+    for (let num of allTags) {
+      countsObj[num] = countsObj[num] ? countsObj[num] + 1 : 1 // {#mongodb: 2, #regex: 1, #dutch: 4}
     }
-    console.log(counts)
-    setTagsCounter(counts)
-    
-  }, [])
+
+    for (let tag in countsObj) {
+      allTagsCombined.push([tag, countsObj[tag]])
+    }
+
+    allTagsCombined.sort((a, b) => {
+      return b[1] - a[1]
+    })
+
+    setTagsCounter(allTagsCombined)
+  }, [allPosts])
 
   const filterPrompts = (searchtext) => {
     const regex = new RegExp(searchtext, 'i') // 'i' flag for case-insensitive search
@@ -105,7 +114,24 @@ const Feed = () => {
         <PromptCardList data={allPosts} handleTagClick={handleTagClick} />
       )}
 
-      <h4>All tags</h4>
+      {/* Extra: show tags by usage count. */}
+      <h3 className='subhead_text orange_gradient text-center'>All tags</h3>
+      <table className='w-1/2 border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left'>
+        <thead>
+          <tr>
+            <th className='border border-slate-600'>Tag</th>
+            <th className='border border-slate-600'>Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          {tagsCount.map((tag) => (
+            <tr key={tag[0] + tag[1]}>
+              <td className='border border-slate-700'>{tag[0]}</td>
+              <td className='border border-slate-700'>{tag[1]}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </section>
   )
 }
